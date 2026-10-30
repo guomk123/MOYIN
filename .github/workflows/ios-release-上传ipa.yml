@@ -96,3 +96,4 @@ jobs:
             -p "$APPLE_PASSWORD" \
             -m upload \
             -asc_provider "$APPLE_ASC_PROVIDER"
+            -t HTTP
