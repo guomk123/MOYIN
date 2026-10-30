@@ -61,16 +61,15 @@ jobs:
           # 使用上一步设置的环境变量
           path: ${{ env.IPA_FILE_NAME }}
 
-      - name: Upload using iTMSTransporter
+       - name: Upload using iTMSTransporter
         env:
           APPLE_USERNAME: Wang785616708@icloud.com
           APPLE_PASSWORD: ppec-ejgn-erzy-etvq
           APPLE_ASC_PROVIDER: WK3HH6X8SY
         run: |
-          echo "当前工作目录: $(pwd)"
-          
-          # 清理可能损坏的 Transporter 缓存（解决临时文件创建失败的关键）
+          # 彻底清理缓存和上传令牌
           rm -rf ~/.itmstransporter/
+          rm -rf ~/Library/Caches/com.apple.amp.itmstransporter/
           
           # 从 Apple 官方源下载并安装 iTMSTransporter
           echo "正在下载 iTMSTransporter..."
