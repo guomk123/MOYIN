@@ -71,6 +71,7 @@ jobs:
           rm -rf ~/.itmstransporter/
           rm -rf ~/Library/Caches/com.apple.amp.itmstransporter/
           
+          
           # 从 Apple 官方源下载并安装 iTMSTransporter
           echo "正在下载 iTMSTransporter..."
           url="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/resources/download/public/Transporter__OSX/bin/"
