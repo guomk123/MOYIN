@@ -72,6 +72,11 @@ jobs:
           
           # 清理可能损坏的 Transporter 缓存（解决临时文件创建失败的关键）
           rm -rf ~/.itmstransporter/
+          rm -rf ~/Library/Caches/com.apple.amp.itmstransporter/
+          
+             df -h
+          echo "临时目录 TMPDIR: $TMPDIR"
+          df -h "$TMPDIR"
           
           # 从 Apple 官方源下载并安装 iTMSTransporter
           echo "正在下载 iTMSTransporter..."
