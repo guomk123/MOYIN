@@ -96,14 +96,8 @@ jobs:
           fi
           
           
-           echo "预热 iTMSTransporter 缓存..."
-          /usr/local/itms/bin/iTMSTransporter || true
-          
-          # 然后执行上传，强制使用 HTTP 传输
-          /usr/local/itms/bin/iTMSTransporter \
-            -assetFile "$IPA_FILE_NAME" \
+         xcrun altool --upload-app \
+            -f "$IPA_FILE_NAME" \
             -u "$APPLE_USERNAME" \
             -p "$APPLE_PASSWORD" \
-            -m upload \
-            -asc_provider "$APPLE_ASC_PROVIDER" \
-            -t HTTP
+            --asc-provider "$APPLE_ASC_PROVIDER"
