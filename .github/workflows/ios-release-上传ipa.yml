@@ -61,42 +61,27 @@ jobs:
           # 使用上一步设置的环境变量
           path: ${{ env.IPA_FILE_NAME }}
 
-      - name: Upload using iTMSTransporter
+      - name: Upload using altool
         env:
           APPLE_USERNAME: Wang785616708@icloud.com
           APPLE_PASSWORD: ppec-ejgn-erzy-etvq
           APPLE_ASC_PROVIDER: WK3HH6X8SY
         run: |
           echo "当前工作目录: $(pwd)"
-          rm -rf ~/Library/Caches/com.apple.amp.itmstransporter/
-          
-          # 清理可能损坏的 Transporter 缓存（解决临时文件创建失败的关键）
-          rm -rf ~/.itmstransporter/
-          rm -rf ~/Library/Caches/com.apple.amp.itmstransporter/
-          
-             df -h
           echo "临时目录 TMPDIR: $TMPDIR"
-          df -h "$TMPDIR"
-          
-          # 从 Apple 官方源下载并安装 iTMSTransporter
-          echo "正在下载 iTMSTransporter..."
-          url="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/resources/download/public/Transporter__OSX/bin/"
-          curl -fsSL "$url" -o "/tmp/itmstransporter.pkg"
-          sudo installer -pkg "/tmp/itmstransporter.pkg" -target /
-          
-          # 验证安装
-          /usr/local/itms/bin/iTMSTransporter -help
-          
-          # 执行上传
+
+          # 清理 altool/Transporter 可能残留的缓存（保留这项仍有帮助）
+          rm -rf ~/Library/Caches/com.apple.amp.itmstransporter/
+
           echo "尝试上传 IPA: $IPA_FILE_NAME"
-          
+
           if [ -z "$IPA_FILE_NAME" ] || [ ! -f "$IPA_FILE_NAME" ]; then
             echo "错误: IPA 文件不存在或变量未设置。"
             exit 1
           fi
-          
-          
-         xcrun altool --upload-app \
+
+          # 使用 altool 上传
+          xcrun altool --upload-app \
             -f "$IPA_FILE_NAME" \
             -u "$APPLE_USERNAME" \
             -p "$APPLE_PASSWORD" \
